@@ -5,8 +5,8 @@ import win32api, win32con, win32gui
 import re
 from PIL import Image, ImageDraw, ImageFont
 
-reload(sys)
-sys.setdefaultencoding("utf-8")
+# reload(sys)
+# sys.setdefaultencoding("utf-8")
 
 def get_page(url):
     req = requests.get(url)
@@ -15,7 +15,7 @@ def get_page(url):
 def find_img(content):
     json_data = json.loads(content)
     image = json_data['images'][0]
-    print "Get image URL"
+    print("Get image URL")
     return image['url'], image['copyright']
 
 
@@ -23,7 +23,7 @@ def download_image(img_url, file_path):
     """
     download image from a url, save to file_path
     """
-    print "Downloading Image..."
+    print("Downloading Image...")
     workPath = os.getcwd()
     save_path = workPath + '\\' + file_path
     if not os.path.exists(save_path):
@@ -31,7 +31,7 @@ def download_image(img_url, file_path):
     suffix = img_url[img_url.rfind('.'):]
     suffix = suffix[:suffix.rfind('&')]
     img_content = requests.get(img_url).content
-    print "Saving Image..."
+    print("Saving Image...")
     fname = save_path + time.strftime('%Y%m%d') + suffix
     with open(fname, 'wb') as img_file:
         img_file.write(img_content)
@@ -48,7 +48,7 @@ def write_placesName(file_path, str_word):
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype('simsun.ttc',25)
     str_word = str_word[:str_word.rfind('(')]
-    print str_word
+    print(str_word)
     draw.text((10, height-80), str_word, fill = (0, 0 ,0), font=font, stroke_width=1) # stroke_fill=
 
     img.save(final_path)
@@ -65,7 +65,7 @@ def set_wallpaper_from_bmp(bmp_path):
     win32gui.SystemParametersInfo(win32con.SPI_SETDESKWALLPAPER, bmp_path, 1 + 2)
 
 def set_wallpaper(img_path):
-    print "Set Wallpaper..."
+    print("Set Wallpaper...")
     img_dir = os.path.dirname(img_path)
     bmpImage = Image.open(img_path)
     new_bmp_path = os.path.join(img_dir, 'wallpaper.bmp')
