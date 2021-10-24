@@ -1,1 +1,1 @@
-python Bing_Pictrure.py
+python Bing_Picture.py
